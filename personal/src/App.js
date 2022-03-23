@@ -1,19 +1,18 @@
-import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 //
-import Days from "./Days";
+import Home from "./Home";
 import Review from "./Review";
 
 function App() {
   return (
     <Firstdiv>
       <Switch>
-        <Route path="/" exact>
-          <Days />
-        </Route>
-        <Route path="/review/:day_name" exact>
+        <Route path="/review/:day_name">
           <Review />
+        </Route>
+        <Route path="/">
+          <Home />
         </Route>
       </Switch>
     </Firstdiv>

@@ -3,12 +3,11 @@ import styled from "styled-components";
 
 import FrontScore from "./FrontScore";
 
-const Days = (props) => {
-  const randomScore = Math.floor(Math.random() * 5);
+const Home = (props) => {
   return (
     <Day>
       <div>
-        <h2>내 일주일은?</h2>
+        <h2 style={{ marginBottom: "30px" }}>내 일주일은?</h2>
       </div>
       <div>
         <FrontScore />
@@ -24,4 +23,4 @@ const Day = styled.div`
   justify-content: center;
 `;
 
-export default Days;
+export default Home;

@@ -1,61 +1,55 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const FrontScore = (props) => {
-  const sevenDays = ["월", "화", "수", "목", "금", "토", "일"];
-  const history = useHistory();
+  const [days, setDays] = useState(["일", "월", "화", "수", "목", "금", "토"]);
+  const today = new Date().getDay();
+  useEffect(() => {
+    setDays((cur) => [...cur.slice(today, 7), ...cur.slice(0, today)]);
+  }, []);
+  console.log(days);
   return (
-    <>
-      {sevenDays.map((v, i) => {
-        const randomScore = Math.ceil(Math.random() * 5);
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {days.map((v, i) => {
+        let score = Math.ceil(Math.random() * 5);
         return (
-          <div key={i} style={{ display: "flex", alignItems: "center" }}>
-            <p>{v}</p>
+          <div
+            key={i}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginBottom: "10px",
+            }}
+          >
+            <span>{v}</span>
             <Circle
-              style={
-                randomScore > 0
-                  ? { backgroundColor: "yellow" }
-                  : { backgroundColor: "rgb(221, 221, 221)" }
-              }
-            />
+              style={score >= 1 ? { backgroundColor: "yellow" } : null}
+            ></Circle>
             <Circle
-              style={
-                randomScore > 1
-                  ? { backgroundColor: "yellow" }
-                  : { backgroundColor: "rgb(221, 221, 221)" }
-              }
-            />
+              style={score >= 2 ? { backgroundColor: "yellow" } : null}
+            ></Circle>
             <Circle
-              style={
-                randomScore > 2
-                  ? { backgroundColor: "yellow" }
-                  : { backgroundColor: "rgb(221, 221, 221)" }
-              }
-            />
+              style={score >= 3 ? { backgroundColor: "yellow" } : null}
+            ></Circle>
             <Circle
-              style={
-                randomScore > 3
-                  ? { backgroundColor: "yellow" }
-                  : { backgroundColor: "rgb(221, 221, 221)" }
-              }
-            />
+              style={score >= 4 ? { backgroundColor: "yellow" } : null}
+            ></Circle>
             <Circle
-              style={
-                randomScore > 4
-                  ? { backgroundColor: "yellow" }
-                  : { backgroundColor: "rgb(221, 221, 221)" }
-              }
-            />
-            <Triangle
-              onClick={() => {
-                history.push(`/review/${v}`);
-              }}
-            ></Triangle>
+              style={score >= 5 ? { backgroundColor: "yellow" } : null}
+            ></Circle>
+            <Link to={`/review/${v}`}>
+              <Triangle></Triangle>
+            </Link>
           </div>
         );
       })}
-    </>
+    </div>
   );
 };
 
@@ -82,4 +76,5 @@ const Triangle = styled.div`
   color: rgb(255, 255, 255);
   cursor: pointer;
 `;
+
 export default FrontScore;

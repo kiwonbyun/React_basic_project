@@ -1,121 +1,95 @@
-import React, { useState } from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Review = (props) => {
-  const history = useHistory();
-  const day_name = useParams();
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const CircleClick = (e, index) => {
-    let clickStates = [...clicked];
-    for (let i = 0; i < 5; i++) {
-      if (i <= index) {
-        clickStates[i] = true;
-      } else {
-        clickStates[i] = false;
-      }
-    }
-    setClicked(clickStates);
+  const { day_name } = useParams();
+  const [score, setScore] = useState(0);
+  const onClick = (e) => {
+    setScore((current) => e.target.id);
   };
+  const text = document;
+  const handleKeyDown = (e) => {
+    if (e.key >= 1 && e.key <= 5) {
+      setScore(e.key);
+    }
+  };
+  text.addEventListener("keydown", handleKeyDown);
   return (
     <Wrap>
-      <Title>
-        <p>{day_name.day_name}요일</p>
-        <p>평점 남기기</p>
-      </Title>
-      <div style={{ display: "flex" }}>
-        <Circle
-          onClick={(e) => CircleClick(e, 0)}
-          style={
-            clicked[0]
-              ? { backgroundColor: "yellow" }
-              : { backgroundColor: "rgb(221, 221, 221)" }
-          }
-        />
-        <Circle
-          onClick={(e) => CircleClick(e, 1)}
-          style={
-            clicked[1]
-              ? { backgroundColor: "yellow" }
-              : { backgroundColor: "rgb(221, 221, 221)" }
-          }
-        />
-        <Circle
-          onClick={(e) => CircleClick(e, 2)}
-          style={
-            clicked[2]
-              ? { backgroundColor: "yellow" }
-              : { backgroundColor: "rgb(221, 221, 221)" }
-          }
-        />
-        <Circle
-          onClick={(e) => CircleClick(e, 3)}
-          style={
-            clicked[3]
-              ? { backgroundColor: "yellow" }
-              : { backgroundColor: "rgb(221, 221, 221)" }
-          }
-        />
-        <Circle
-          onClick={(e) => CircleClick(e, 4)}
-          style={
-            clicked[4]
-              ? { backgroundColor: "yellow" }
-              : { backgroundColor: "rgb(221, 221, 221)" }
-          }
-        />
-      </div>
       <div>
-        <ScoreBtn
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          평점남기기
-        </ScoreBtn>
+        <Span>{day_name}요일</Span>
+        <span>평점 남기기</span>
+      </div>
+      <Scorediv>
+        <Circle
+          id="1"
+          onClick={onClick}
+          style={score >= 1 ? { backgroundColor: "yellow" } : null}
+        ></Circle>
+        <Circle
+          id="2"
+          onClick={onClick}
+          style={score >= 2 ? { backgroundColor: "yellow" } : null}
+        ></Circle>
+        <Circle
+          id="3"
+          onClick={onClick}
+          style={score >= 3 ? { backgroundColor: "yellow" } : null}
+        ></Circle>
+        <Circle
+          id="4"
+          onClick={onClick}
+          style={score >= 4 ? { backgroundColor: "yellow" } : null}
+        ></Circle>
+        <Circle
+          id="5"
+          onClick={onClick}
+          style={score >= 5 ? { backgroundColor: "yellow" } : null}
+        ></Circle>
+      </Scorediv>
+      <div>
+        <Link to="/">
+          <Button>평점 남기기</Button>
+        </Link>
       </div>
     </Wrap>
   );
 };
+const Span = styled.span`
+  background-color: aqua;
+  padding: 5px 10px;
+  border-radius: 20px;
+`;
+
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  margin-top: 70px;
+  margin-top: 80px;
 `;
-
-const Title = styled.div`
-  display: flex;
-  p:first-child {
-    margin-right: 5px;
-    background-color: tomato;
-    border-radius: 10px;
-    color: white;
-  }
-  p {
-    font-size: 20px;
-    padding: 5px;
-  }
-`;
-
 const Circle = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 30px;
   margin: 5px;
   background-color: rgb(221, 221, 221);
+  cursor: pointer;
+`;
+const Scorediv = styled.div`
+  display: flex;
+  margin: 20px 0px;
 `;
 
-const ScoreBtn = styled.button`
-  width: 200px;
+const Button = styled.button`
+  background-color: tomato;
+  width: 130px;
   height: 50px;
   border: none;
-  background-color: aquamarine;
-  border-radius: 5px;
-  margin-top: 20px;
-  font-size: 15px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
 `;
 
 export default Review;
