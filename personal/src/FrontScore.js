@@ -8,7 +8,6 @@ const FrontScore = (props) => {
   useEffect(() => {
     setDays((cur) => [...cur.slice(today, 7), ...cur.slice(0, today)]);
   }, []);
-  console.log(days);
   return (
     <div
       style={{

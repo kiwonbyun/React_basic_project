@@ -14,7 +14,13 @@ const Review = (props) => {
       setScore(e.key);
     }
   };
-  text.addEventListener("keydown", handleKeyDown);
+  useEffect(() => {
+    text.addEventListener("keydown", handleKeyDown);
+    return () => {
+      text.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <Wrap>
       <div>
