@@ -1,0 +1,15 @@
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+}
+
+.list_item {
+  color: white;
+  background-color: rgb(230, 90, 65);
+  padding: 15px;
+  margin: 15px 0px;
+  border-radius: 999px;
+  font-size: 18px;
+  font-weight: 500;
+}
